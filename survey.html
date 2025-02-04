@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GMU Student Survey</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            padding: 50px;
+        }
+        .survey-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+            max-width: 700px;
+            margin: auto;
+            text-align: center;
+        }
+        h2 {
+            color: #004b87;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+        }
+        .required::after {
+            content: " *";
+            color: red;
+        }
+        .w3-input, .w3-select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .submit-btn, .cancel-btn {
+            background-color: #004b87;
+            color: white;
+            padding: 15px 25px;
+            font-size: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+        .cancel-btn {
+            background-color: #d9534f;
+        }
+        .submit-btn:hover {
+            background-color: #003366;
+        }
+        .cancel-btn:hover {
+            background-color: #b52b27;
+        }
+        .checkbox-group, .radio-group {
+            text-align: left;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function validateRaffle() {
+            let raffleInput = document.getElementById("raffle").value.trim();
+            if (raffleInput === "") return true; // Allow empty field since it's optional
+
+            let numbers = raffleInput.split(",").map(num => num.trim());
+            if (numbers.length !== 10) {
+                alert("Please enter exactly 10 numbers separated by commas.");
+                return false;
+            }
+
+            for (let num of numbers) {
+                if (!/^\d+$/.test(num) || num < 1 || num > 100) {
+                    alert("Each number must be between 1 and 100.");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            if (validateRaffle()) {
+                alert("Submitted successfully!");
+            }
+        }
+
+        function handleCancel() {
+            document.getElementById("survey-form").reset();
+        }
+    </script>
+</head>
+<body>
+    <div class="survey-container">
+        <h2>GMU Student Survey</h2>
+        <form id="survey-form" onsubmit="handleSubmit(event)">
+            <label for="fname" class="required">First Name:</label>
+            <input class="w3-input w3-border" type="text" id="fname" name="fname" required>
+            
+            <label for="lname" class="required">Last Name:</label>
+            <input class="w3-input w3-border" type="text" id="lname" name="lname" required>
+            
+            <label for="address" class="required">Street Address:</label>
+            <input class="w3-input w3-border" type="text" id="address" name="address" required>
+            
+            <label for="city" class="required">City:</label>
+            <input class="w3-input w3-border" type="text" id="city" name="city" required>
+            
+            <label for="state" class="required">State:</label>
+            <input class="w3-input w3-border" type="text" id="state" name="state" required>
+            
+            <label for="zip" class="required">Zip Code:</label>
+            <input class="w3-input w3-border" type="text" id="zip" name="zip" required>
+            
+            <label for="phone" class="required">Telephone:</label>
+            <input class="w3-input w3-border" type="tel" id="phone" name="phone" required>
+            
+            <label for="email" class="required">Email:</label>
+            <input class="w3-input w3-border" type="email" id="email" name="email" required>
+            
+            <label for="survey-date" class="required">Date of Survey:</label>
+            <input class="w3-input w3-border" type="date" id="survey-date" name="survey-date" required>
+            
+            <label>What did you like most about the campus?</label>
+            <div class="checkbox-group">
+                <input type="checkbox" name="likes" value="students"> Students
+                <input type="checkbox" name="likes" value="location"> Location
+                <input type="checkbox" name="likes" value="campus"> Campus
+                <input type="checkbox" name="likes" value="atmosphere"> Atmosphere
+                <input type="checkbox" name="likes" value="dorms"> Dorm Rooms
+                <input type="checkbox" name="likes" value="sports"> Sports
+            </div>
+            
+            <label>How did you hear about the university?</label>
+            <div class="radio-group">
+                <input type="radio" name="interest" value="friends"> Friends
+                <input type="radio" name="interest" value="television"> Television
+                <input type="radio" name="interest" value="internet"> Internet
+                <input type="radio" name="interest" value="other"> Other
+            </div>
+            
+            <label for="recommend">Would you recommend this university?</label>
+            <select class="w3-select w3-border" id="recommend" name="recommend">
+                <option value="very-likely">Very Likely</option>
+                <option value="likely">Likely</option>
+                <option value="unlikely">Unlikely</option>
+            </select>
+            
+            <label for="raffle">Enter 10 comma-separated numbers (1-100) for the Raffle:</label>
+            <input class="w3-input w3-border" type="text" id="raffle" name="raffle">
+            
+            <label for="comments">Additional Comments:</label>
+            <textarea class="w3-input w3-border" id="comments" name="comments" rows="4"></textarea>
+            
+            <div class="btn-container">
+                <button type="submit" class="submit-btn">Submit</button>
+                <button type="button" class="cancel-btn" onclick="handleCancel()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
